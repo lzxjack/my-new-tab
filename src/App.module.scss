@@ -1,6 +1,14 @@
 .box {
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   .center {
+    height: 60px;
+    width: 800px;
+    background-color: #ccc;
+    border-radius: 60px;
+    padding: 10px;
   }
 }
