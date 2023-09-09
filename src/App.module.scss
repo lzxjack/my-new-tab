@@ -5,8 +5,9 @@ $centerPadding: 6px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url('./assets/bg.jpg') center/cover no-repeat;
-  background-size: 100%;
+  position: relative;
+  background: url('./assets/bg.jpg') center no-repeat fixed;
+  background-size: cover;
 
   &::before {
     content: '';
@@ -22,6 +23,24 @@ $centerPadding: 6px;
     z-index: 0;
   }
 
+  .timeBox {
+    position: absolute;
+    left: 50%;
+    bottom: 50%;
+    transform: translate(-50%, -30px);
+    font-size: 160px;
+    padding-bottom: 20px;
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #e2e2e2;
+    text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    .divider {
+      width: 60px;
+    }
+  }
+
   .center {
     position: relative;
     height: 60px;
@@ -35,25 +54,6 @@ $centerPadding: 6px;
 
     &:hover {
       box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.6);
-    }
-
-    .timeBox {
-      position: absolute;
-      width: 100%;
-      left: 50%;
-      bottom: 100%;
-      transform: translate(-50%, 0);
-      font-size: 160px;
-      padding-bottom: 20px;
-      user-select: none;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #fff;
-      text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
-      .divider {
-        width: 60px;
-      }
     }
 
     .typeBox {

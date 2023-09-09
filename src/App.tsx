@@ -53,6 +53,9 @@ const App = () => {
         return index + 1;
       });
     }
+    if (event.key === 'Escape') {
+      setText('');
+    }
   };
 
   useEffect(() => {
@@ -67,12 +70,12 @@ const App = () => {
 
   return (
     <div className={styles.box} onClick={handleClickBox}>
+      <div className={styles.timeBox}>
+        {time.h}
+        <div className={styles.divider}></div>
+        {time.m}
+      </div>
       <div className={styles.center}>
-        <div className={styles.timeBox}>
-          {time.h}
-          <div className={styles.divider}></div>
-          {time.m}
-        </div>
         <div
           className={styles.typeBox}
           onClick={e => {
