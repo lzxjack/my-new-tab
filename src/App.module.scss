@@ -5,7 +5,7 @@ $centerPadding: 6px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url('./assets/2.jpg') center/cover no-repeat;
+  background: url('./assets/bg.jpg') center/cover no-repeat;
   background-size: 100%;
 
   &::before {
@@ -57,11 +57,19 @@ $centerPadding: 6px;
     }
 
     .typeBox {
-      width: 70px;
+      width: 60px;
       height: 100%;
-      background-color: yellow;
       border-radius: 16px;
       margin-right: 6px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      &:hover {
+        background-color: #434343;
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.6) inset;
+      }
     }
 
     .input {
@@ -78,7 +86,7 @@ $centerPadding: 6px;
 
     .options {
       position: absolute;
-      width: 70px + $centerPadding * 2;
+      width: 60px + $centerPadding * 2;
       left: 0;
       top: 60px + $centerPadding;
       border-radius: 20px;
@@ -87,9 +95,17 @@ $centerPadding: 6px;
 
       .optionItem {
         height: 60px - $centerPadding * 2;
-        background-color: #fff;
         border-radius: 16px;
         margin-bottom: 6px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: 0.3s all;
+        cursor: pointer;
+        &:hover {
+          background-color: #434343;
+          box-shadow: 0 0 6px rgba(0, 0, 0, 0.6) inset;
+        }
 
         &:last-child {
           margin-bottom: 0;

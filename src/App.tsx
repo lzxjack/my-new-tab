@@ -1,53 +1,72 @@
-import { KeyboardEvent, ChangeEvent, useState, useEffect } from 'react';
+import {
+  useState,
+  useEffect,
+  useRef,
+  MouseEventHandler,
+  KeyboardEventHandler,
+  ChangeEventHandler
+} from 'react';
 import styles from './App.module.scss';
 import { useTime } from './hooks/useTime';
-
-enum SearchTypeEnum {
-  BING = 'bing',
-  GOOGLE = 'google',
-  BAIDU = 'baidu'
-}
-
-const SearchTypeMap = {
-  [SearchTypeEnum.BING]: 'https://cn.bing.com/search?q=',
-  [SearchTypeEnum.GOOGLE]: 'https://www.google.com/search?q=',
-  [SearchTypeEnum.BAIDU]: 'https://www.baidu.com/s?wd='
-};
-
-const SearchTypeIconMap = {
-  [SearchTypeEnum.GOOGLE]: 'Goole',
-  [SearchTypeEnum.BING]: 'Bing',
-  [SearchTypeEnum.BAIDU]: 'Baidu'
-};
-
-const SearchTypeLocalStorageKey = 'searchType';
+import { SearchTypeArr, SearchTypeLocalStorageKey } from './constant';
 
 const App = () => {
+  const optionsRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const { time } = useTime();
   const [text, setText] = useState('');
-  const [searchType, setSearchType] = useState(SearchTypeEnum.GOOGLE);
+  const [searchIndex, setSearchIndex] = useState(0);
   const [optionsVisible, setOptionsVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const searchType = localStorage.getItem(SearchTypeLocalStorageKey) as SearchTypeEnum;
-    setSearchType(searchType || SearchTypeEnum.GOOGLE);
-    setLoading(true);
-  }, []);
-
-  const handleTextChange = (e: ChangeEvent) => {
-    const target = e.target as HTMLInputElement;
+  const handleTextChange: ChangeEventHandler<HTMLInputElement> = event => {
+    const target = event.target as HTMLInputElement;
     setText(target.value);
   };
 
-  const handleKeyDown = (event: KeyboardEvent) => {
-    if (event.key === 'Enter') {
-      location.href = `${SearchTypeMap[searchType]}${text}`;
+  const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = event => {
+    if (event.key === 'Enter' && text) {
+      location.href = `${SearchTypeArr[searchIndex].url}${text}`;
     }
   };
 
+  const handleClickBox: MouseEventHandler<HTMLDivElement> = event => {
+    if (!optionsRef.current) {
+      return;
+    }
+    const isSelf = !!optionsRef.current.contains(event.target as Node);
+    !isSelf && setOptionsVisible(false);
+  };
+
+  const handleDocumentKey = (event: KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      inputRef.current?.focus();
+    }
+    if (event.key === 'Tab') {
+      event.preventDefault();
+      setSearchIndex(index => {
+        if (index === SearchTypeArr.length - 1) {
+          localStorage.setItem(SearchTypeLocalStorageKey, `${0}`);
+          return 0;
+        }
+        localStorage.setItem(SearchTypeLocalStorageKey, `${index + 1}`);
+        return index + 1;
+      });
+    }
+  };
+
+  useEffect(() => {
+    const searchTypeIndex = Number(localStorage.getItem(SearchTypeLocalStorageKey) || 0);
+    setSearchIndex(isNaN(searchTypeIndex) ? 0 : searchTypeIndex);
+    setLoading(true);
+    document.addEventListener('keydown', handleDocumentKey);
+    return () => {
+      document.removeEventListener('keydown', handleDocumentKey);
+    };
+  }, []);
+
   return (
-    <div className={styles.box}>
+    <div className={styles.box} onClick={handleClickBox}>
       <div className={styles.center}>
         <div className={styles.timeBox}>
           {time.h}
@@ -56,32 +75,34 @@ const App = () => {
         </div>
         <div
           className={styles.typeBox}
-          onClick={() => {
+          onClick={e => {
+            e.stopPropagation();
             setOptionsVisible(!optionsVisible);
           }}
         >
-          {loading && SearchTypeIconMap[searchType]}
+          {loading && SearchTypeArr[searchIndex].icon}
           {optionsVisible && (
-            <div className={styles.options}>
-              {Object.keys(SearchTypeIconMap).map((item, index) => (
+            <div className={styles.options} ref={optionsRef}>
+              {SearchTypeArr.map((_, index) => (
                 <div
                   key={index}
                   className={styles.optionItem}
-                  onClick={() => {
-                    setSearchType(item as SearchTypeEnum);
+                  onClick={e => {
+                    e.stopPropagation();
+                    setSearchIndex(index);
                     setOptionsVisible(false);
-                    localStorage.setItem(SearchTypeLocalStorageKey, item);
+                    localStorage.setItem(SearchTypeLocalStorageKey, `${index}`);
                   }}
                 >
-                  {SearchTypeIconMap[item as SearchTypeEnum]}
+                  {SearchTypeArr[index].icon}
                 </div>
               ))}
             </div>
           )}
-          di
         </div>
         <input
           type='text'
+          ref={inputRef}
           className={styles.input}
           autoFocus
           value={text}
