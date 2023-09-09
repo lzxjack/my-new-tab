@@ -1,14 +1,100 @@
+$centerPadding: 6px;
+
 .box {
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: url('./assets/2.jpg') center/cover no-repeat;
+  background-size: 100%;
+
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    filter: blur(14px);
+    transform-origin: center;
+    transform: scale(1.04);
+    z-index: 0;
+  }
 
   .center {
+    position: relative;
     height: 60px;
     width: 800px;
-    background-color: #ccc;
-    border-radius: 60px;
-    padding: 10px;
+    background-color: #202124;
+    border-radius: 20px;
+    padding: $centerPadding;
+    display: flex;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    transition: 0.3s all;
+
+    &:hover {
+      box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.6);
+    }
+
+    .timeBox {
+      position: absolute;
+      width: 100%;
+      left: 50%;
+      bottom: 100%;
+      transform: translate(-50%, 0);
+      font-size: 160px;
+      padding-bottom: 20px;
+      user-select: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+      .divider {
+        width: 60px;
+      }
+    }
+
+    .typeBox {
+      width: 70px;
+      height: 100%;
+      background-color: yellow;
+      border-radius: 16px;
+      margin-right: 6px;
+    }
+
+    .input {
+      outline: none;
+      border: none;
+      background-color: transparent;
+      font-size: 24px;
+      flex: 1;
+      height: 60px - $centerPadding * 2;
+      line-height: 60px - $centerPadding * 2;
+      vertical-align: middle;
+      color: #fff;
+    }
+
+    .options {
+      position: absolute;
+      width: 70px + $centerPadding * 2;
+      left: 0;
+      top: 60px + $centerPadding;
+      border-radius: 20px;
+      background-color: #202124;
+      padding: $centerPadding;
+
+      .optionItem {
+        height: 60px - $centerPadding * 2;
+        background-color: #fff;
+        border-radius: 16px;
+        margin-bottom: 6px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
   }
 }
