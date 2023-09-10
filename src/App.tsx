@@ -55,6 +55,7 @@ const App = () => {
     }
     if (event.key === 'Escape') {
       setText('');
+      inputRef.current?.focus();
     }
   };
 
