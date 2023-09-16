@@ -110,7 +110,7 @@ const App = () => {
           className={styles.input}
           autoFocus
           value={text}
-          onChange={handleTextChange}
+          onInput={handleTextChange}
           onKeyDown={handleKeyDown}
         />
       </div>
