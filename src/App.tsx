@@ -25,7 +25,7 @@ const App = () => {
   };
 
   const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = event => {
-    if (event.key === 'Enter' && text) {
+    if (event.keyCode === 13 && text) {
       location.href = `${SearchTypeArr[searchIndex].url}${text}`;
     }
   };
@@ -110,7 +110,7 @@ const App = () => {
           className={styles.input}
           autoFocus
           value={text}
-          onInput={handleTextChange}
+          onChange={handleTextChange}
           onKeyDown={handleKeyDown}
         />
       </div>
