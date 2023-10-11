@@ -1,114 +1,104 @@
 $centerPadding: 6px;
 
-.box {
+.wrap {
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
   background: url('./assets/bg.jpg') center no-repeat fixed;
   background-size: cover;
-
-  &::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+  .box {
     height: 100%;
-    background: inherit;
-    filter: blur(14px);
-    transform-origin: center;
-    transform: scale(1.04);
-    z-index: 0;
-  }
-
-  .timeBox {
-    position: absolute;
-    left: 50%;
-    bottom: 50%;
-    transform: translate(-50%, -30px);
-    font-size: 160px;
-    padding-bottom: 20px;
-    user-select: none;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #e2e2e2;
-    text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
-    .divider {
-      width: 60px;
-    }
-  }
-
-  .center {
     position: relative;
-    height: 60px;
-    width: 800px;
-    background-color: #202124;
-    border-radius: 20px;
-    padding: $centerPadding;
-    display: flex;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
-    transition: 0.3s all;
+    backdrop-filter: blur(16px);
 
-    &:hover {
-      box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.6);
-    }
-
-    .typeBox {
-      width: 60px;
-      height: 100%;
-      border-radius: 16px;
-      margin-right: 6px;
+    .timeBox {
+      position: absolute;
+      left: 50%;
+      bottom: 50%;
+      transform: translate(-50%, -30px);
+      font-size: 160px;
+      padding-bottom: 20px;
+      user-select: none;
       display: flex;
       justify-content: center;
       align-items: center;
-      cursor: pointer;
-      transition: all 0.3s;
-      &:hover {
-        background-color: #434343;
-        box-shadow: 0 0 6px rgba(0, 0, 0, 0.6) inset;
+      color: #e2e2e2;
+      text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+      .divider {
+        width: 60px;
       }
     }
 
-    .input {
-      outline: none;
-      border: none;
-      background-color: transparent;
-      font-size: 24px;
-      flex: 1;
-      height: 60px - $centerPadding * 2;
-      line-height: 60px - $centerPadding * 2;
-      vertical-align: middle;
-      color: #fff;
-    }
-
-    .options {
-      position: absolute;
-      width: 60px + $centerPadding * 2;
-      left: 0;
-      top: 60px + $centerPadding;
-      border-radius: 20px;
+    .center {
+      position: relative;
+      height: 60px;
+      width: 800px;
       background-color: #202124;
+      border-radius: 20px;
       padding: $centerPadding;
+      display: flex;
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+      transition: 0.3s all;
 
-      .optionItem {
-        height: 60px - $centerPadding * 2;
+      &:hover {
+        box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.6);
+      }
+
+      .typeBox {
+        width: 60px;
+        height: 100%;
         border-radius: 16px;
-        margin-bottom: 6px;
+        margin-right: 6px;
         display: flex;
         justify-content: center;
         align-items: center;
-        transition: 0.3s all;
         cursor: pointer;
+        transition: all 0.3s;
         &:hover {
           background-color: #434343;
           box-shadow: 0 0 6px rgba(0, 0, 0, 0.6) inset;
         }
+      }
 
-        &:last-child {
-          margin-bottom: 0;
+      .input {
+        outline: none;
+        border: none;
+        background-color: transparent;
+        font-size: 24px;
+        flex: 1;
+        height: 60px - $centerPadding * 2;
+        line-height: 60px - $centerPadding * 2;
+        vertical-align: middle;
+        color: #fff;
+      }
+
+      .options {
+        position: absolute;
+        width: 60px + $centerPadding * 2;
+        left: 0;
+        top: 60px + $centerPadding;
+        border-radius: 20px;
+        background-color: #202124;
+        padding: $centerPadding;
+
+        .optionItem {
+          height: 60px - $centerPadding * 2;
+          border-radius: 16px;
+          margin-bottom: 6px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          transition: 0.3s all;
+          cursor: pointer;
+          &:hover {
+            background-color: #434343;
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.6) inset;
+          }
+
+          &:last-child {
+            margin-bottom: 0;
+          }
         }
       }
     }

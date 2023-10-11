@@ -70,49 +70,51 @@ const App = () => {
   }, []);
 
   return (
-    <div className={styles.box} onClick={handleClickBox}>
-      <div className={styles.timeBox}>
-        {time.h}
-        <div className={styles.divider}></div>
-        {time.m}
-      </div>
-      <div className={styles.center}>
-        <div
-          className={styles.typeBox}
-          onClick={e => {
-            e.stopPropagation();
-            setOptionsVisible(!optionsVisible);
-          }}
-        >
-          {loading && SearchTypeArr[searchIndex].icon}
-          {optionsVisible && (
-            <div className={styles.options} ref={optionsRef}>
-              {SearchTypeArr.map((_, index) => (
-                <div
-                  key={index}
-                  className={styles.optionItem}
-                  onClick={e => {
-                    e.stopPropagation();
-                    setSearchIndex(index);
-                    setOptionsVisible(false);
-                    localStorage.setItem(SearchTypeLocalStorageKey, `${index}`);
-                  }}
-                >
-                  {SearchTypeArr[index].icon}
-                </div>
-              ))}
-            </div>
-          )}
+    <div className={styles.wrap}>
+      <div className={styles.box} onClick={handleClickBox}>
+        <div className={styles.timeBox}>
+          {time.h}
+          <div className={styles.divider}></div>
+          {time.m}
         </div>
-        <input
-          type='text'
-          ref={inputRef}
-          className={styles.input}
-          autoFocus
-          value={text}
-          onChange={handleTextChange}
-          onKeyDown={handleKeyDown}
-        />
+        <div className={styles.center}>
+          <div
+            className={styles.typeBox}
+            onClick={e => {
+              e.stopPropagation();
+              setOptionsVisible(!optionsVisible);
+            }}
+          >
+            {loading && SearchTypeArr[searchIndex].icon}
+            {optionsVisible && (
+              <div className={styles.options} ref={optionsRef}>
+                {SearchTypeArr.map((_, index) => (
+                  <div
+                    key={index}
+                    className={styles.optionItem}
+                    onClick={e => {
+                      e.stopPropagation();
+                      setSearchIndex(index);
+                      setOptionsVisible(false);
+                      localStorage.setItem(SearchTypeLocalStorageKey, `${index}`);
+                    }}
+                  >
+                    {SearchTypeArr[index].icon}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          <input
+            type='text'
+            ref={inputRef}
+            className={styles.input}
+            autoFocus
+            value={text}
+            onChange={handleTextChange}
+            onKeyDown={handleKeyDown}
+          />
+        </div>
       </div>
     </div>
   );
