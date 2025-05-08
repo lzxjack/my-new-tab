@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode } from "react";
 
 interface IProps {
   className?: string;
@@ -11,9 +11,9 @@ const Icon = ({ className, size = 30, children }: IProps) => {
     <div
       className={className}
       style={{
-        position: 'relative',
+        position: "relative",
         width: size,
-        height: size
+        height: size,
       }}
     >
       {children}

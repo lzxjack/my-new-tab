@@ -4,33 +4,33 @@ import {
   useRef,
   MouseEventHandler,
   KeyboardEventHandler,
-  ChangeEventHandler
-} from 'react';
-import styles from './App.module.scss';
-import { useTime } from './hooks/useTime';
-import { SearchTypeArr, SearchTypeLocalStorageKey } from './constant';
+  ChangeEventHandler,
+} from "react";
+import styles from "./App.module.scss";
+import { useTime } from "./hooks/useTime";
+import { SearchTypeArr, SearchTypeLocalStorageKey } from "./constant";
 
 const App = () => {
   const optionsRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const { time } = useTime();
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
   const [searchIndex, setSearchIndex] = useState(0);
   const [optionsVisible, setOptionsVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const handleTextChange: ChangeEventHandler<HTMLInputElement> = event => {
+  const handleTextChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     const target = event.target as HTMLInputElement;
     setText(target.value);
   };
 
-  const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = event => {
+  const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (event) => {
     if (event.keyCode === 13 && text) {
       location.href = `${SearchTypeArr[searchIndex].url}${text}`;
     }
   };
 
-  const handleClickBox: MouseEventHandler<HTMLDivElement> = event => {
+  const handleClickBox: MouseEventHandler<HTMLDivElement> = (event) => {
     if (!optionsRef.current) {
       return;
     }
@@ -39,12 +39,12 @@ const App = () => {
   };
 
   const handleDocumentKey = (event: KeyboardEvent) => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       inputRef.current?.focus();
     }
-    if (event.key === 'Tab') {
+    if (event.key === "Tab") {
       event.preventDefault();
-      setSearchIndex(index => {
+      setSearchIndex((index) => {
         if (index === SearchTypeArr.length - 1) {
           localStorage.setItem(SearchTypeLocalStorageKey, `${0}`);
           return 0;
@@ -53,19 +53,21 @@ const App = () => {
         return index + 1;
       });
     }
-    if (event.key === 'Escape') {
-      setText('');
+    if (event.key === "Escape") {
+      setText("");
       inputRef.current?.focus();
     }
   };
 
   useEffect(() => {
-    const searchTypeIndex = Number(localStorage.getItem(SearchTypeLocalStorageKey) || 0);
+    const searchTypeIndex = Number(
+      localStorage.getItem(SearchTypeLocalStorageKey) || 0
+    );
     setSearchIndex(isNaN(searchTypeIndex) ? 0 : searchTypeIndex);
     setLoading(true);
-    document.addEventListener('keydown', handleDocumentKey);
+    document.addEventListener("keydown", handleDocumentKey);
     return () => {
-      document.removeEventListener('keydown', handleDocumentKey);
+      document.removeEventListener("keydown", handleDocumentKey);
     };
   }, []);
 
@@ -80,7 +82,7 @@ const App = () => {
         <div className={styles.center}>
           <div
             className={styles.typeBox}
-            onClick={e => {
+            onClick={(e) => {
               e.stopPropagation();
               setOptionsVisible(!optionsVisible);
             }}
@@ -92,11 +94,14 @@ const App = () => {
                   <div
                     key={index}
                     className={styles.optionItem}
-                    onClick={e => {
+                    onClick={(e) => {
                       e.stopPropagation();
                       setSearchIndex(index);
                       setOptionsVisible(false);
-                      localStorage.setItem(SearchTypeLocalStorageKey, `${index}`);
+                      localStorage.setItem(
+                        SearchTypeLocalStorageKey,
+                        `${index}`
+                      );
                     }}
                   >
                     {SearchTypeArr[index].icon}
@@ -106,7 +111,7 @@ const App = () => {
             )}
           </div>
           <input
-            type='text'
+            type="text"
             ref={inputRef}
             className={styles.input}
             autoFocus

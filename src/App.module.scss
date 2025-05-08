@@ -1,8 +1,21 @@
 $centerPadding: 6px;
 
+// 暗黑主题
+$bgColor_Dark: #2e2e2e;
+$inputColor_Dark: #424242;
+$inputHoverColor_Dark: #363636;
+$timeColor_Dark: #e2e2e2;
+$inputTextColor_Dark: #fff;
+
+// 亮色主题
+$bgColor_Light: #e8e8e8;
+$inputColor_Light: #f8f8f8;
+$inputHoverColor_Light: #e9e9e9;
+$timeColor_Light: #343434;
+$inputTextColor_Light: #000;
+
 .wrap {
   height: 100%;
-  background: url('./assets/bg.jpg') center no-repeat fixed;
   background-size: cover;
   .box {
     height: 100%;
@@ -23,7 +36,6 @@ $centerPadding: 6px;
       display: flex;
       justify-content: center;
       align-items: center;
-      color: #e2e2e2;
       text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
       .divider {
         width: 60px;
@@ -34,9 +46,9 @@ $centerPadding: 6px;
       position: relative;
       height: 60px;
       width: 800px;
-      background-color: #202124;
       border-radius: 20px;
       padding: $centerPadding;
+      padding-right: calc((60px - 30px) / 2 + $centerPadding);
       display: flex;
       box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
       transition: all 0.15s;
@@ -56,7 +68,6 @@ $centerPadding: 6px;
         cursor: pointer;
         transition: all 0.15s;
         &:hover {
-          background-color: #434343;
           box-shadow: 0 0 6px rgba(0, 0, 0, 0.6) inset;
         }
       }
@@ -70,7 +81,6 @@ $centerPadding: 6px;
         height: 60px - $centerPadding * 2;
         line-height: 60px - $centerPadding * 2;
         vertical-align: middle;
-        color: #fff;
       }
 
       .options {
@@ -79,7 +89,6 @@ $centerPadding: 6px;
         left: 0;
         top: 60px + $centerPadding;
         border-radius: 20px;
-        background-color: #202124;
         padding: $centerPadding;
 
         .optionItem {
@@ -92,12 +101,71 @@ $centerPadding: 6px;
           transition: all 0.15s;
           cursor: pointer;
           &:hover {
-            background-color: #434343;
             box-shadow: 0 0 6px rgba(0, 0, 0, 0.6) inset;
           }
 
           &:last-child {
             margin-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .wrap {
+    background-color: $bgColor_Dark;
+    .box {
+      .timeBox {
+        color: $timeColor_Dark;
+      }
+      .center {
+        background-color: $inputColor_Dark;
+        .typeBox {
+          &:hover {
+            background-color: $inputHoverColor_Dark;
+          }
+        }
+        .input {
+          color: $inputTextColor_Dark;
+        }
+        .options {
+          background-color: $inputColor_Dark;
+          .optionItem {
+            &:hover {
+              background-color: $inputHoverColor_Dark;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .wrap {
+    background-color: $bgColor_Light;
+    .box {
+      .timeBox {
+        color: $timeColor_Light;
+      }
+      .center {
+        background-color: $inputColor_Light;
+        .typeBox {
+          &:hover {
+            background-color: $inputHoverColor_Light;
+          }
+        }
+        .input {
+          color: $inputTextColor_Light;
+        }
+        .options {
+          background-color: $inputColor_Light;
+          .optionItem {
+            &:hover {
+              background-color: $inputHoverColor_Light;
+            }
           }
         }
       }
