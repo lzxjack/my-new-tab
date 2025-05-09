@@ -9,6 +9,8 @@
   "permissions": ["tabs"],
   "icons": {
     "16": "logo.png",
+    "24": "logo.png",
+    "32": "logo.png",
     "48": "logo.png",
     "128": "logo.png"
   },
@@ -16,8 +18,9 @@
     "default_icon": {
       "16": "logo.png",
       "24": "logo.png",
-      "32": "logo.png"
-    },
-    "default_title": "My New Tab"
+      "32": "logo.png",
+      "48": "logo.png",
+      "128": "logo.png"
+    }
   }
 }

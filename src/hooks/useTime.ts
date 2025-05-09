@@ -14,7 +14,7 @@ export const useTime = () => {
     const s = new Date(timeline).getSeconds().toString().padStart(2, "0");
     setTime({ h, m, s });
     requestAnimationFrame(getTime);
-  }, [setTime]);
+  }, []);
 
   useEffect(() => {
     const requestAnimationID = requestAnimationFrame(getTime);

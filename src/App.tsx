@@ -3,7 +3,7 @@ import {
   useEffect,
   useRef,
   MouseEventHandler,
-  KeyboardEventHandler,
+  FormEventHandler,
   ChangeEventHandler,
 } from "react";
 import styles from "./App.module.scss";
@@ -17,15 +17,16 @@ const App = () => {
   const [text, setText] = useState("");
   const [searchIndex, setSearchIndex] = useState(0);
   const [optionsVisible, setOptionsVisible] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [iconReady, setIconReady] = useState(false);
 
   const handleTextChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     const target = event.target as HTMLInputElement;
     setText(target.value);
   };
 
-  const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (event) => {
-    if (event.keyCode === 13 && text) {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault();
+    if (text) {
       location.href = `${SearchTypeArr[searchIndex].url}${text}`;
     }
   };
@@ -64,7 +65,7 @@ const App = () => {
       localStorage.getItem(SearchTypeLocalStorageKey) || 0
     );
     setSearchIndex(isNaN(searchTypeIndex) ? 0 : searchTypeIndex);
-    setLoading(true);
+    setIconReady(true);
     document.addEventListener("keydown", handleDocumentKey);
     return () => {
       document.removeEventListener("keydown", handleDocumentKey);
@@ -79,7 +80,7 @@ const App = () => {
           <div className={styles.divider}></div>
           {time.m}
         </div>
-        <div className={styles.center}>
+        <form onSubmit={handleSubmit} className={styles.center}>
           <div
             className={styles.typeBox}
             onClick={(e) => {
@@ -87,7 +88,7 @@ const App = () => {
               setOptionsVisible(!optionsVisible);
             }}
           >
-            {loading && SearchTypeArr[searchIndex].icon}
+            {iconReady && SearchTypeArr[searchIndex].icon}
             {optionsVisible && (
               <div className={styles.options} ref={optionsRef}>
                 {SearchTypeArr.map((_, index) => (
@@ -117,9 +118,8 @@ const App = () => {
             autoFocus
             value={text}
             onChange={handleTextChange}
-            onKeyDown={handleKeyDown}
           />
-        </div>
+        </form>
       </div>
     </div>
   );
